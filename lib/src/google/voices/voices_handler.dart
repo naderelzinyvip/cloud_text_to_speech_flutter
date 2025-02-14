@@ -5,6 +5,8 @@ import 'package:cloud_text_to_speech/src/google/voices/voices_response_mapper.da
 import 'package:cloud_text_to_speech/src/google/voices/voices_responses.dart';
 import 'package:http/http.dart' as http;
 
+import '../../common/utils/log.dart';
+
 class VoicesHandlerGoogle {
   Future<VoicesSuccessGoogle> getVoices(
       AuthenticationHeaderGoogle authHeader) async {
@@ -15,6 +17,7 @@ class VoicesHandlerGoogle {
       final mapper = VoicesResponseMapperGoogle();
       final response = await voiceClient.get(Uri.parse(EndpointsGoogle.voices));
       final voicesResponse = mapper.map(response);
+      Log.d("voice response :: $voicesResponse");
       if (voicesResponse is VoicesSuccessGoogle) {
         return voicesResponse;
       } else {

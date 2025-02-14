@@ -40,20 +40,33 @@ class VoiceGoogle extends VoiceUniversal {
     required this.locale,
     this.sampleRateHertz,
   }) : super(
-            provider: provider,
-            engines: engines,
-            code: code,
-            name: name,
-            nativeName: nativeName,
-            gender: gender,
-            locale: locale);
+      provider: provider,
+      engines: engines,
+      code: code,
+      name: name,
+      nativeName: nativeName,
+      gender: gender,
+      locale: locale);
 
   factory VoiceGoogle.fromJson(Map<String, dynamic> json) =>
       _$VoiceGoogleFromJson(json);
 
+  // static List<String> _toEngines(String name) {
+  //   print("Name :: $name");
+  //   List<String> nameSegments = name.split('-');
+  //   print("Name Segments: $nameSegments");
+  //   var nameS = [nameSegments[2].toLowerCase()];
+  //   print("NameS :: $nameS");
+  //   return [nameSegments[2].toLowerCase()];
+  // }
+
   static List<String> _toEngines(String name) {
-    List<String> nameSegments = name.split('-');
-    return [nameSegments[2].toLowerCase()];
+    if (name.contains('-')) {
+      List<String> nameSegments = name.split('-');
+      return [nameSegments[2].toLowerCase()];
+    } else {
+      return [name.toLowerCase()];
+    }
   }
 
   static String _toGender(String ssmlGender) {
